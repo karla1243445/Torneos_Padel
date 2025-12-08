@@ -84,8 +84,15 @@ public class TorneoDaoMock implements ITorneoDao {
     }
 
     private String getNombreEquipo(int idEquipo) {
-        // TODO 05: Implementar la obtención del nombre del equipo por su id
-        Torneo torneo= new Torneo();
+        // TODO 05: Implementar la obtención del nombre del equipo por su id done
+        for (int i = 0; i < torneos.length; i++) {
+            for (int j = 0; j < getEquiposTorneo(i).length; j++) {
+                if (getEquiposTorneo(i)[j].getId()==idEquipo){
+                    return getEquiposTorneo(i)[j].getNombre();
+                }
+            }
+        }
+
 
 
         return "";
@@ -138,15 +145,18 @@ public class TorneoDaoMock implements ITorneoDao {
     }
 
     private int getNumeroRegistrosFase(int idFase) {
-        // TODO 09: Implementar la obtención del número de registros (partidos) de una fase
+        // TODO 09: Implementar la obtención del número de registros (partidos) de una fase done
         // Usar el array fases. El número de registros (partidos) es la mitad del número de equipos
+        int contador=0;
+        for (int i = 0; i < fases.length; i++) {
+            for (int j = 0; j <registros.length ; j++) {
+                if (fases[i].getId()==idFase && registros[j].getFase()==idFase){
+                    contador++;
+                }
+            }
+        }
 
-
-
-
-
-
-        return 0;
+        return contador;
     }
 
     @Override
@@ -487,7 +497,9 @@ public class TorneoDaoMock implements ITorneoDao {
         // TODO 20: Implementar la obtención de los equipos de un torneo
         // Devuelve un array con la referencia a los 8 equipos del torneo
         EquipoDto[] equipos = new EquipoDto[8];
+        for (int i = 0; i <usuarios.length ; i++) {
 
+        }
 
 
 
