@@ -4,7 +4,7 @@ import edu.masanz.da.torneo.model.*;
 
 import static edu.masanz.da.torneo.config.Config.*;
 
-public class git initDataDaoMock {
+public class DataDaoMock {
 
     public static final Rol[] rols = new Rol[]{
             new Rol(ROL_NOHAY_ID, ROL_NOHAY),   // "Sin rol"

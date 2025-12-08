@@ -1,5 +1,7 @@
 package edu.masanz.da.torneo.model;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+
 public class EquipoDto {
     private int id;
     private String nombre;

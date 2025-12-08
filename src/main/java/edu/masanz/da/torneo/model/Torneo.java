@@ -83,6 +83,7 @@ public class Torneo {
     }
 
     public String toJson() {
+
         return String.format("{\"id\":%d,\"nombre\":\"%s\",\"fase\":%d}", id, nombre, fase);
     }
 

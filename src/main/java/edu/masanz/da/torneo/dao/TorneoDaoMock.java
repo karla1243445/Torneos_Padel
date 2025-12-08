@@ -11,12 +11,13 @@ public class TorneoDaoMock implements ITorneoDao {
 
     @Override
     public boolean authenticate(String alias, String password) {
-        // TODO 01: Implementar la autenticación de usuario
-
-
-
-
-
+        // TODO 01: Implementar la autenticación de usuario DONE
+        for (int i = 0; i < usuarios.length; i++) {
+            if (alias.equalsIgnoreCase(usuarios[i].getAlias()) &&
+                    password.equalsIgnoreCase(usuarios[i].getPassword())){
+                return true;
+            }
+        }
 
 
         return false;
@@ -24,57 +25,67 @@ public class TorneoDaoMock implements ITorneoDao {
 
     @Override
     public Usuario getUsuarioByAlias(String alias) {
-        // TODO 02: Implementar la búsqueda de usuario por alias
-
-
-
-
-
-
+        // TODO 02: Implementar la búsqueda de usuario por alias DONE
+        Usuario usuario= new Usuario();
+        for (int i = 0; i < usuarios.length; i++) {
+            usuarios[i]=usuario;
+            if (alias.equalsIgnoreCase(usuarios[i].getAlias())){
+                return usuario;
+            }
+        }
         return null;
     }
 
     @Override
     public Usuario getUsuarioByNombre(String nombre) {
-        // TODO 03: Implementar la búsqueda de usuario por nombre
-
-
-
-
-
-
+        // TODO 03: Implementar la búsqueda de usuario por nombre DONE
+        Usuario usuario= new Usuario();
+        for (int i = 0; i < usuarios.length; i++) {
+            usuarios[i]=usuario;
+            if (nombre.equalsIgnoreCase(usuarios[i].getNombre())){
+                return usuario;
+            }
+        }
         return null;
     }
 
     @Override
     public TorneoFaseDto[] getTorneosFases() {
-        // TODO 04: Implementar la obtención de los torneos con sus fases
+        // TODO 04: Implementar la obtención de los torneos con sus fases DONE
         // Este array no debe tener referencias nulas y su tamaño debe ser el justo
         TorneoFaseDto[] a = new TorneoFaseDto[torneos.length];
         int k = 0;
+        for (int i = 0; i < torneos.length; i++) {
+            if (torneos[i]!=null){
+                TorneoFaseDto tfd = new TorneoFaseDto();
+                tfd.setIdTorneo(torneos[i].getId());
+                tfd.setNombreTorneo(torneos[i].getNombre());
+
+                String nombreFase= " ";
+                int idFase = torneos[i].getFase();
+                // obtener nombre  fase
+                for (int j = 0; j < fases.length; j++) {
+                    Fase fase = fases[j];
+                    if (fase.getId()== idFase){
+                        nombreFase = fase.getNombre();
+                        break;
+                    }
+                }
+//                nombreFase =
+                tfd.setNombreFase(nombreFase);
+                a[k]= tfd;
+                k++;
 
 
-
-
-
-
-
-
-
-
-
-
-
+            }
+        }
 
         return Arrays.copyOfRange(a, 0, k);
     }
 
     private String getNombreEquipo(int idEquipo) {
         // TODO 05: Implementar la obtención del nombre del equipo por su id
-
-
-
-
+        Torneo torneo= new Torneo();
 
 
         return "";
@@ -82,39 +93,46 @@ public class TorneoDaoMock implements ITorneoDao {
 
     @Override
     public Torneo getTorneo(int idTorneo) {
-        // TODO 06: Implementar la búsqueda de torneo por id
-
-
-
-
-
-
+        // TODO 06: Implementar la búsqueda de torneo por id DONE
+        Torneo torneo= new Torneo();
+        for (int i = 0; i < torneos.length; i++) {
+            torneos[i]=torneo;
+            if (idTorneo == torneo.getId()){
+                return torneo;
+            }
+        }
         return null;
     }
 
     @Override
     public Torneo getTorneo(String nombreTorneo) {
-        // TODO 07: Implementar la búsqueda de torneo por nombre
-
-
-
-
-
-
+        // TODO 07: Implementar la búsqueda de torneo por nombre DONE
+        Torneo torneo= new Torneo();
+        for (int i = 0; i < torneos.length; i++) {
+            torneos[i]=torneo;
+            if (nombreTorneo == torneo.getNombre()){
+                return torneo;
+            }
+        }
         return null;
     }
 
     @Override
     public Fase getFase(int idTorneo) {
-        // TODO 08: Implementar la obtención de la fase actual de un torneo
+        // TODO 08: Implementar la obtención de la fase actual de un torneo DONE
+        Fase fase= new Fase();
+        int idFaseTorneo = 0;
+        for (int i = 0; i < torneos.length; i++) {
+            if (torneos[i].getId()==idTorneo && torneos[i]!=null){
+                idFaseTorneo=torneos[i].getFase();
+            }
+            for (int j = 0; j < fases.length; j++) {
 
-
-
-
-
-
-
-
+                if (fases[i].getId()==idFaseTorneo){
+                    return fases[i];
+                }
+            }
+        }
 
         return null;
     }
