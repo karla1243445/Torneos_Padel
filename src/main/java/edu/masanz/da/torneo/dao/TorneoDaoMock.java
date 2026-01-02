@@ -166,24 +166,20 @@ public class TorneoDaoMock implements ITorneoDao {
         // Siempre habrá 8 registros en un torneo de 8 equipos:
         // cuartos (4), semifinales (2), tercer puesto (1) y final (1)
 
-
-
         RegistroResultadosDto[] rrd = new RegistroResultadosDto[8];
 
 
+        for (int i = 0; i < torneos.length; i++) {
+            for (int j = 0; j < registros.length; j++) {
+                for (int k = 0; k < resultados.length; k++) {
+                    if (torneos[i]!=null){
+                        if (torneos[i].getId()==registros[j].getTorneo() && resultados[k].getRegistro()==registros[j].getId()){
 
-
-
-
-
-
-
-
-
-
-
-
-
+                        }
+                    }
+                }
+            }
+        }
 
 
 
@@ -196,20 +192,23 @@ public class TorneoDaoMock implements ITorneoDao {
         int n = getNumeroRegistrosFase(idFase);
         RegistroResultadosDto[] rrd = new RegistroResultadosDto[n];
 
+        for (int i = 0; i < rrd.length; i++) {
+            for (int j = 0; j < registros.length; j++) {
+                if (registros[j].getTorneo()==idTorneo && registros[j].getFase()==idFase){
+                    rrd[i].setEquipo1(getNombreEquipo(registros[i].getEquipo1()));
+                    rrd[i].setEquipo2(getNombreEquipo(registros[i].getEquipo2()));
+                    rrd[i].setGanador(registros[j].getGanador());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+                }
+                for (int k = 0; k < resultados.length; k++) {
+                    if (resultados[k].getRegistro()==registros[j].getId()){
+                        if (resultados[k].getNumero()==3){
+                           // rrd[i].setValores();
+                        }
+                    }
+                }
+            }
+        }
 
 
 
@@ -292,28 +291,23 @@ public class TorneoDaoMock implements ITorneoDao {
     }
 
     private boolean checkFinFase(int idTorneo, int idFaseActual) {
-        // TODO 14: Implementar la comprobación de si se puede avanzar de fase
+        // TODO 14: Implementar la comprobación de si se puede avanzar de fase done
         // Nunca se puede avanzar desde Terminado
         // Se puede avanzar de fase si todos los registros de la fase actual tienen un ganador distinto de cero
         // Para ello, recorrer todos los registros buscando los del torneo y fase actual
         // Si la fase actual es tercer y cuarto puesto o final, comprobar ambos registros
 
+        for (int i = 0; i < registros.length; i++) {
+            for (int j = 0; j < fases.length; j++) {
+                if (registros[i].getTorneo()== idTorneo && registros[i].getFase()==idFaseActual ){
+                    if ( fases[j].getId()!=5 && registros[i].getGanador()!=0){
+                        return true;
+                    }
+                }
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return true;
+        return false;
     }
 
     /**
@@ -323,18 +317,20 @@ public class TorneoDaoMock implements ITorneoDao {
      * @return true Siempre se puede avanzar desde Sin Empezar
      */
     private boolean avanzarFaseSinEmpezar(Torneo torneo) {
-        // TODO 15: Implementar el avance de fase desde Sin Empezar a Cuartos
+        // TODO 15: Implementar el avance de fase desde Sin Empezar a Cuartos done
         // Poner la fase de todos los registros del torneo que estuviesen en Sin Empezar a Cuartos
+        for (int i = 0; i <torneos.length ; i++) {
+            for (int j = 0; j < registros.length; j++) {
+                if (torneos[i]==torneo && registros[j].getTorneo()== torneos[i].getId()){
+                    if (registros[j].getFase()==0){
+                        registros[j].setFase(1);
+                        return true;
+                    }
+                }
+            }
+        }
 
-
-
-
-
-
-
-
-
-        return true;
+        return false;
     }
 
     private boolean avanzarFaseCuartos(Torneo torneo) {
@@ -345,8 +341,30 @@ public class TorneoDaoMock implements ITorneoDao {
         // Obtener un array auxiliar con los ids de los equipos ganadores de cuartos de los registros
         // Definir los partidos de semifinales con los ganadores de cuartos en los registros
 
+        int [] arrayAux = new int[2];
 
+        for (int i = 0; i < torneos.length; i++) {
+            for (int j = 0; j < registros.length; j++) {
+                if (torneos[i]==torneo && registros[j].getTorneo()== torneos[i].getId()){
+                    if (registros[j].getFase()==1){
 
+                    }
+                }
+            }
+        }
+        int numGanadores=0;
+        for (int i = 0; i <registros.length ; i++) {
+            if (registros[i].getFase()==1){
+                if (registros[i].getGanador()==1){
+                    arrayAux[numGanadores]=registros[i].getEquipo1();
+                    numGanadores++;
+                }
+                if (registros[i].getGanador()==2){
+                    arrayAux[numGanadores]=registros[i].getEquipo2();
+                    numGanadores++;
+                }
+            }
+        }
 
 
 
